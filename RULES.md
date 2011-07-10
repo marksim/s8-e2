@@ -1,6 +1,6 @@
-==Space Truckin'==
+# Space Truckin' #
 
-===Basics===
+## Basics ##
 
 (3-5 players)
 
@@ -18,7 +18,7 @@ To protect a trade route, you must have the specified # of Mines.
 
 To deliver cargo along a trade route, you must have (length/2) Fuel 
 
-===Setup===
+## Setup ##
 
    * Place 6 cargo markers at random on each planet, these indicate the cargo available for trade
 
@@ -26,7 +26,7 @@ To deliver cargo along a trade route, you must have (length/2) Fuel
    * Shuffle the resource cards and deal 4 to each player.  Put 5 face up and place the remainder in a draw pile
    * Each player is randomly assigned a home planet.  They take the cargo from that planet and place their main freighter ship on it.
 
-===Gameplay===
+## Gameplay ##
 
 
    * Select a starting player in any agreeable manner.  Give them the 'First fleet' marker
@@ -55,7 +55,7 @@ To deliver cargo along a trade route, you must have (length/2) Fuel
 
 After one round where every player has taken a stage card, the first fleet marker moves to the next player and play continues.
 
-===Winning===
+## Winning ##
 
 
    * The game is over when 
