@@ -1,4 +1,4 @@
-$LOAD_PATH.unshift File.dirname(__FILE__) + '/../lib/environment.rb'
+require_rel '../lib/environment'
  
 #require 'rubygems'
 #require 'spec'

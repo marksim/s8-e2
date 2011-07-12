@@ -1,3 +1,6 @@
 source :rubygems
 
-gem 'rspec', :require => 'spec'
+gem 'rspec', :require => 'rspec'
+gem 'require_all'
+
+gem 'guard-rspec'

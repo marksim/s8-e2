@@ -2,7 +2,7 @@
 
 ## Basics ##
 
-(3-5 players)
+(a game for 3 players)
 
 You are an intergalactic trader who aims to maximize profit by optimizing trade routes and providing goods to other planets demanding supply.
 
