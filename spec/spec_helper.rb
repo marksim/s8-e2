@@ -1,4 +1,5 @@
-require_rel '../lib/environment'
- 
-#require 'rubygems'
-#require 'spec'
+require 'rubygems'
+require 'space_truckin'
+
+RSpec.configure do |config|
+end
