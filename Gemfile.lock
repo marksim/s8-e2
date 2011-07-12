@@ -25,6 +25,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  guard-rspec
+  guard-rspec (~> 0.4.0)
   rspec (~> 2.1.0)
   space_truckin!
