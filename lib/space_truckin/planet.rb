@@ -5,10 +5,6 @@ module SpaceTruckin
     attr_reader :demand
     attr_reader :routes
 
-    def self.planets
-      @planets ||= {}
-    end
-
     def initialize(name)
       @name = name
       @cargo = 6
