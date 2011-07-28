@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.summary     = "Space Truckin' Engine."
   s.description = "Game inspired by Ticket to Ride and Steam... in SPAAAACCEEE."
 
-  s.files        = Dir["{lib,spec}/**/*", "[A-Z]*", "init.rb"] - ["Gemfile.lock"]
+  s.files        = Dir["{lib,spec}/**/*", "[A-Z]*"] - ["Gemfile.lock"]
   s.require_path = "lib"
 
   s.add_development_dependency 'rspec', '~> 2.1.0'

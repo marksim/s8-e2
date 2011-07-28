@@ -1,54 +1,65 @@
-If you've only ever played family board games such as Scrabble and Monopoly,
-you've missed out on a whole world of geeky goodness. There is an entire
-subculture dedicated to fiendishly complex strategy games that are a ton of fun
-to play and also serve as a great way to exercise the same sort of logic and
-reasoning that you need to use to write good software. Every time I play one of
-these games, I think about what it must take to actually design them and usually
-end up with a headache.
+# Space Truckin' #
 
-For this exercise, you'll be taking inspiration from a pair of board games,
-"Ticket to Ride" and "Steam", and then working to come up with a game engine
-that is inspired by them. Please start by watching the following two videos so
-that you can understand what the games are about.
+## Basics ##
 
-  * <http://www.youtube.com/watch?v=f6Prr7iSt58>
-  * <http://www.youtube.com/watch?v=S6YMCVg2_Ak>
+(a game for 3 players)
 
-The guidelines below describe what you're expected to do for this assignment.
+You are an intergalactic trader who aims to maximize profit by optimizing trade routes and providing goods to other planets demanding supply.
 
-* Your goal is to first come up with a set of rules for a train game inspired
-by Steam and/or Ticket to Ride, but without directly copying the ideas of those
-games. Once you have those rules figured out, you are expected to build a game
-engine that enforces the rules and could be used to build a playable game
-without too much effort.
+There are a number of planets within the galaxy, each with cargo items available at the start.
 
-* You are not expected to build a fully functional game complete with a full
-event loop and user interface, but you should have examples that are detailed
-enough to show how such a game could be built on top of your engine. For
-example, you could create a script that runs on the command line simulating a
-few player actions and then outputting the state of any relevant domain models.
+The resource are Food, Ships, Mines, Fuel 
 
-* Both Steam and Ticket to Ride have some core concepts in common: Connections
-between cities, ownership of those connections, and resources you need to
-collect in order to build those connections. The game rules you come up with
-should incorporate all of those basic concepts.
+The stages are 'Demand', 'Control', 'Ship', 'Attack' and 'Protect'
 
-* Each game also has some special elements to it that add additional layers of
-complexity or special cases on top of the core concepts. The game rules you
-create should have at least a few of these special elements to keep things
-interesting.
+To control a trade route, you must have (length/2) Food, (length/3)+1 Ships 
 
-* You can and should discuss this problem with other students in the session.
-While each student is expected to do a non-trivial amount of modeling for this
-assignment, and we expect that no two students will have identical rulesets to
-work on, there is a good deal of overlap in the overall design of games like
-this as well as in some of the implementation code for various core structures
-(such as a deck of cards). You are encouraged to share code with one another as
-much as you'd like, as long as you have a large enough non-trivial portion of
-your program that is your own work.
+To protect a trade route, you must have the specified # of Mines.
 
-* This is the challenge problem for this session, so don't worry if it seems
-complex. It is as much about requirements discovery and product development as
-it is about writing functional code. Be sure to ask questions as they come
-up, and simplify the problem as needed to get to a point that you feel you can
-work on it. If you get stuck, just let us know and we'll help you out.
+To deliver cargo along a trade route, you must have (length/2) Fuel 
+
+## Setup ##
+
+   * Place 6 cargo markers at random on each planet, these indicate the cargo available for trade
+
+   * Place the 5 stage cards face up
+   * Shuffle the resource cards and deal 4 to each player.  Put 5 face up and place the remainder in a draw pile
+   * Each player is randomly assigned a home planet.  They take the cargo from that planet and place their main freighter ship on it.
+
+## Gameplay ##
+
+
+   * Select a starting player in any agreeable manner.  Give them the 'First fleet' marker
+   * Player 1 takes one of the 5 stage cards and the rest of the round goes through the stage
+
+   * Demand
+      * The drawing player may place one demand chip on a planet.  This increases the demand for goods of that color for that planet.  After that, all players may take 2 resource cards from the discard "zone" (one of the 5 face up cards or a random card from the face down pile)
+   * Control
+      * Each player has an opportunity to deploy ships to attempt to control a trade route, starting with the player who drew the card.  The drawing player gains 1 ship for this turn automatically
+      * If you have length/2 food + length/3+1 ships for a shipping route you have access to (a continuous route from your home planet), you may trade in the resources and place a marker on that route indicating control
+      * When you control a shipping route, you get ??? victory points (see chart)
+   * Ship
+      * Each player has an opportunity to ship cargo along their trade routes.  If you have (length/2) fuel for trade routes you control, you may move your freighter along them.    The drawing player gets +1 fuel.
+      * If you reach a planet that has cargo you may take up to half of the cargo remaining on that planet (rounding up).
+      * If you reach a planet with demand chips, you may sell up to ??? cargo from your freighter for DEMAND  x CARGO victory points.
+   * Protect
+      * Each player may protect any shipping lane they control with the specified # of mines.  The drawing player gets +1 mines
+      * If your shipping lane is protected during an attack, your mines explode, but your shipping lane remains open
+   * Attack
+      * All players with more than 7 cards must discard half rounding down
+      * The drawing player rolls a dice. 
+         * If the dice is a 5 or higher, they may attack a shipping route by moving the attack marker.  
+            * If that route is protected, then the mines explode and it is no longer protected.
+            * If that route is not protected, then the shipping route is compromised until the next attack round
+         * If the dice is a 3 or 4, the player may remove the attack ship from play, but may not place it again.
+
+After one round where every player has taken a stage card, the first fleet marker moves to the next player and play continues.
+
+## Winning ##
+
+
+   * The game is over when 
+      * All cargo has been shipped
+      *  - or -
+      * All trade routes are controlled AND no demand chips are left
+   * Tally up all victory points and add 10 points for the longest continuous shipping route.  Add 15 points if the longest shipping route is fully protected.
