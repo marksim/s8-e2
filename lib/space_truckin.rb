@@ -1,3 +1,4 @@
+require "space_truckin/helper"
 require "space_truckin/card"
 require "space_truckin/deck"
 require "space_truckin/game"
@@ -8,6 +9,6 @@ require "space_truckin/stage"
 
 module SpaceTruckin
   def self.play(*players)
-    Game.new(*players).play_loop
+    yield Game.new(*players)
   end
 end

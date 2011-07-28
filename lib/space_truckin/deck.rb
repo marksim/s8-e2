@@ -7,11 +7,20 @@ module SpaceTruckin
     end
 
     def shuffle
-      @cards = cards.shuffle
+      @cards = @cards.shuffle
     end
 
     def draw
-      @cards.pop
+      @cards.shift
+    end
+
+    def return_card(card)
+      @cards << card
+      shuffle
+    end
+
+    def empty?
+      @cards.empty?
     end
   end
 end
