@@ -21,7 +21,7 @@ module SpaceTruckin
     end
 
     def to_s
-      "#{@planet_a.name} -(#{@length})- #{@planet_b.name} !!#{state}"
+      "#{@planet_a.name} -(#{state} length #{@length})- #{@planet_b.name} "
     end
 
     def uncontrolled?
@@ -81,14 +81,18 @@ module SpaceTruckin
     end
 
     def state
-      if usable? && controlled?
-        if protected?
-          "protected"
+      if controlled?
+        if usable?
+          if protected?
+            "protected"
+          else
+            "controlled"
+          end
         else
-          "usable"
+          "under attack"
         end
       else
-        "unusable"
+        "uncontrolled"
       end
     end
   end

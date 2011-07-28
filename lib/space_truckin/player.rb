@@ -13,6 +13,7 @@ module SpaceTruckin
       
       @location = home_planet
       @cargo = home_planet.get_cargo(:all)
+      @sold_cargo = 0
     end
 
     def to_s
@@ -38,7 +39,7 @@ module SpaceTruckin
     end
 
     def can_control?(route)
-      has?(route.control_cost)
+      route.uncontrolled? && has?(route.control_cost)
     end
 
     def control(route)
@@ -49,7 +50,9 @@ module SpaceTruckin
 
     def can_travel?(route)
       has?(route.travel_cost) && 
-        (@location == route.planet_a || @location.route.planet_b)
+        (@location == route.planet_a || @location == route.planet_b) &&
+        route.controlled_by == self &&
+        route.usable?
     end
 
     def travel(route)
@@ -68,8 +71,16 @@ module SpaceTruckin
       route.protect
     end
 
-    def has?(resource_types)
-      (@resources.map(&:type) & resource_types) == resource_types
+    def has?(*resource_types)
+      x = @resources.map(&:type)
+      resource_types.flatten.each do |resource_type|
+        if (i = x.index(resource_type))
+          x.delete_at(i)
+        else
+          return false
+        end
+      end
+      true
     end
 
     def sell(amount)

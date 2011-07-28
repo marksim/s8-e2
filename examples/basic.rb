@@ -1,26 +1,54 @@
 require 'space_truckin'
 
-def title(text)
-  puts "\n-------------------------------------------------------"
-  puts text
+def seperator
   puts "-------------------------------------------------------"
+end
+
+def title(text)
+  puts ""
+  seperator
+  puts text
+  seperator
 end
 
 SpaceTruckin.play("John", "Paul", "George") do |game|
   title "Welcome to Space Truckin'!"
 
+  seperator
+  title "Planets"
+  game.planets.each do |planet|
+    puts "| Planet - #{planet.name} (#{planet.cargo})"
+  end
   until game.finished?
-    puts "Starting Round"
+    puts ""
+    seperator 
+    puts "*******************Starting Round**********************"
+    seperator
+    title "Players"
+    game.players.each do |player|
+      puts "| Player - #{player}"
+    end
+
+    seperator
+    title "Routes"
+    game.routes.each do |route|
+      puts "| Route - #{route}"
+    end
+    seperator
+    puts ""
+
     game.reset_stages
 
-    game.players.each do |player|
-      title "#{player.name}'s turn"
 
-      puts "Available Stages: #{game.available_stages}"
+    game.players.each do |player|
+      seperator
+      puts "#{player.name}'s turn"
+
       stage_name = game.available_stages[rand(game.available_stages.length)]
 
 
-      title "Playing #{stage_name}"
+      seperator
+      puts "| Playing #{stage_name}"
       case stage_name
       when "Demand"
 
@@ -28,12 +56,12 @@ SpaceTruckin.play("John", "Paul", "George") do |game|
           random_planet = game.planets[rand(game.planets.length)]
           game.add_demand_to(random_planet)
 
-          puts "Added demand to #{random_planet.name} - #{random_planet.demand}"
+          puts "| | Added demand to #{random_planet.name} - #{random_planet.demand}"
 
           stage.players.each do |stage_player|
             # each player draws 1 resource
             stage_player.draw
-            puts "#{stage_player.name} added 2 cards and how has #{stage_player.resources}"
+            puts "| | #{stage_player.name} added cards and how has #{stage_player.resources}"
           end
         end
       when "Control"
@@ -42,7 +70,7 @@ SpaceTruckin.play("John", "Paul", "George") do |game|
             stage_player.location.routes.each do |route|
               if stage_player.can_control?(route)
                 stage_player.control(route)
-                puts "#{stage_player.name} now controls #{route}"
+                puts "| | #{stage_player.name} now controls #{route} - #{route.controlled_by}"
               end
             end
           end
@@ -51,17 +79,16 @@ SpaceTruckin.play("John", "Paul", "George") do |game|
         game.play_stage(stage_name, player) do |stage|
           stage.players.each do |stage_player|
             stage_player.location.routes.each do |route|
-              next unless route.usable?
               if stage_player.can_travel?(route)
                 stage_player.travel(route)
-                puts "#{stage_player.name} traveled to #{stage_player.location.name} along #{route}"
+                puts "| | #{stage_player.name} traveled to #{stage_player.location.name} along #{route}"
                 retrieved_cargo = stage_player.location.get_cargo(:half)
                 stage_player.cargo += retrieved_cargo
-                puts "#{stage_player.name} got #{retrieved_cargo} cargo" if retrieved_cargo > 0
-                if state_player.location.has_demand? 
+                puts "| | #{stage_player.name} got #{retrieved_cargo} cargo" if retrieved_cargo > 0
+                if stage_player.location.has_demand? 
                   cargo_to_sell = [3, stage_player.cargo].max
                   stage_player.sell(cargo_to_sell)
-                  puts "#{stage_player.name} sold #{cargo_to_sell} cargo and now has #{stage_player.victory_points}"
+                  puts "| | #{stage_player.name} sold #{cargo_to_sell} cargo and now has #{stage_player.victory_points}"
                 end
               end
             end
@@ -73,7 +100,7 @@ SpaceTruckin.play("John", "Paul", "George") do |game|
             stage_player.controlled_routes.each do |route|
               if !route.protected? && stage_player.can_protect?(route)
                 stage_player.protect(route)
-                puts "#{stage_player.name} placed space mines along #{route}"
+                puts "| | #{stage_player.name} placed space mines along #{route}"
               end
             end
           end
@@ -85,7 +112,7 @@ SpaceTruckin.play("John", "Paul", "George") do |game|
           stage.players[1..-1].each do |stage_player|
             if stage_player.should_discard_under_attack?
               cards_to_discard = stage_player.resources[0..(stage_player.resources.length/2)-1]
-              puts "#{stage_player.name} discarded #{cards_to_discard}"
+              puts "| | #{stage_player.name} discarded #{cards_to_discard}"
               stage_player.discard(cards_to_discard.map(&:type))
             end
           end
@@ -96,12 +123,12 @@ SpaceTruckin.play("John", "Paul", "George") do |game|
               if route.controlled_by != player
                 game.clear_attacked_routes
                 route.attack
-                puts "#{player.name} attacked #{route}, which is now #{route.state}"
+                puts "| | #{player.name} attacked #{route}, which is now #{route.state}"
               end
             end
           when :remove
             game.clear_attacked_routes
-            puts "#{player.name} removed the attacking aliens from the universe."
+            puts "| | #{player.name} removed the attacking aliens from the universe."
           end
         end
       else
@@ -110,7 +137,6 @@ SpaceTruckin.play("John", "Paul", "George") do |game|
     end
 
     game.rotate_players
-    puts "End of round - Players rotated!"
   end
 
   title "Game over!  Standings..."
