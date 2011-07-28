@@ -29,9 +29,9 @@ module SpaceTruckin
         @players << Player.new(self, name, home_planets.shift)
       end
 
-      @demand_chips = 20
+      @demand_chips = 75
 
-      @deck = Deck.new(60)
+      @deck = Deck.new(100)
       @deck.shuffle
 
       4.times do |i|

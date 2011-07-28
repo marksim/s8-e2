@@ -13,7 +13,7 @@ module SpaceTruckin
       @planet_b      = planet_b
       @length        = length
       @controlled_by = nil
-      @protected     = false
+      @mines         = false
       @usable        = true
 
       @planet_a.add_route(self)
@@ -21,7 +21,7 @@ module SpaceTruckin
     end
 
     def to_s
-      "#{@planet_a.name} -(#{@length})- #{@planet_b.name}"
+      "#{@planet_a.name} -(#{@length})- #{@planet_b.name} !!#{state}"
     end
 
     def uncontrolled?

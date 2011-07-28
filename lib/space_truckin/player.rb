@@ -15,6 +15,10 @@ module SpaceTruckin
       @cargo = home_planet.get_cargo(:all)
     end
 
+    def to_s
+      "#{@name} (@#{@location.name}, ##{@cargo}) - (#{@resources})"
+    end
+
     def should_discard_under_attack?
       @resources.length > 7
     end
